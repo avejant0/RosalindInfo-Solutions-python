@@ -1,33 +1,11 @@
-def readCodonTable(path):
-    codonDict = {}
-    f_table = open(path, 'r');
-    for line in f_table:
-        lineParts = line.split();
-        for i in range(0,len(lineParts)-1):
-            if i % 2 ==0:
-                codonDict[lineParts[i]] = lineParts[i+1];
-    f_table.close();
-    return codonDict;
+import sys
+sys.path.insert(0, '../_common');
 
-def splice(sequence, intronsList):
-    result = sequence;
-    for intronSequence in intronsList:
-        result = result.replace(intronSequence,'');
-    return result;
-    
-def translate(sequence, codonTable):
-    resultSequence = '';
-    for i in range(0,len(sequence),3):
-        triplet = sequence[i] + sequence[i+1] + sequence[i+2]
-        if codonTable[triplet]!='Stop':
-            resultSequence += codonTable[triplet];
-    return resultSequence
-
-def transcript(dna):
-    return dna.replace('T','U');
-
+import bioinf
+  
 def main():
-    codonTable = readCodonTable('codon_table.dat');
+    codonTablePath = '../_refData/codon_table.dat';
+    codonTable = bioinf.readCodonTable(codonTablePath);
     f_input = open('input.txt','r');
     dna_list = [];
     currentSequenceName = '';
@@ -44,9 +22,9 @@ def main():
     f_input.close();
     dna = dna_list[0];
     intronsList = dna_list[1:];
-    splicedDna = splice(dna, intronsList);
-    rna = transcript(splicedDna);
-    protein = translate(rna, codonTable);
+    splicedDna = bioinf.splice(dna, intronsList);
+    rna = bioinf.transcript(splicedDna);
+    protein = bioinf.translate(rna, codonTable);
     f_output = open('output.txt','w');
     f_output.write(protein);
     f_output.close();

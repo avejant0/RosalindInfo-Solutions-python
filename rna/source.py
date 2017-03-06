@@ -1,9 +1,15 @@
-f = open('input.txt', 'r')
-input_str = f.read()
-output_str = ''
-for x in range(0,len(input_str)):
-    if input_str[x] == 'T':
-        output_str += 'U'
-    else:
-        output_str += input_str[x]
-print output_str
+import sys
+sys.path.insert(0, '../_common');
+
+import bioinf
+
+def main():
+    f_input = open('input.txt', 'r')
+    dna = f_input.read()
+    f_input.close();
+    rna = bioinf.transcript(dna);
+    f_output = open('output.txt','w');
+    f_output.write(rna);
+    f_output.close();
+
+main();

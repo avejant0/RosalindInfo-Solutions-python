@@ -1,10 +1,16 @@
-f = open('input.txt', 'r')
-output = dict.fromkeys(['A','G','T', 'C'], 0)
-input_str = f.read()
+import sys
+sys.path.insert(0, '../_common');
 
-for x in range(0, len(input_str)):
-    output[input_str[x]] += 1
+import bioinf
 
-output_str = str(output['A']) + ' ' + str(output['C']) + ' ' + str(output['G']) + ' ' + str(output['T'])
+def main():
+    f_input = open('input.txt', 'r')
+    dna = f_input.read().replace('\n','');
+    f_input.close();
+    quantity = bioinf.nucleotidesQuantityInDna(dna);
+    output_str = str(quantity['A']) + ' ' + str(quantity['C']) + ' ' + str(quantity['G']) + ' ' + str(quantity['T'])
+    f_output = open('output.txt','w');
+    f_output.write(output_str);
+    f_output.close();
 
-print output_str
+main();
