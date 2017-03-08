@@ -85,12 +85,12 @@ def gc_percentage(sequence):
         if sequence[i] == 'G' or sequence[i] == 'C':
             gcquantity = gcquantity + 1;
     return 100 * float(gcquantity)/float(length)
-
-# evaluate hamming distance for list of sequences
-def evaluateHammDistance(sequences):
+ 
+# evaluate hamming distance for two sequences
+def evaluateHammDistance(sequence1, sequence2):
     hammdistance = 0
-    for i in range(0,len(sequences[0])-1):
-        if sequences[0][i] != sequences[1][i]:
+    for i in range(0,len(sequence1)):
+        if sequence1[i] != sequence2[i]:
             hammdistance += 1;
     return hammdistance;
 
